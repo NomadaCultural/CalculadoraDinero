@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de dinero</title>
+
+<style>
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 420px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  h1 {
+    margin: 0 0 20px;
+    text-align: center;
+    font-size: 1.4rem;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .row label {
+    font-weight: 500;
+  }
+
+  .row input {
+    width: 90px;
+    padding: 6px;
+    font-size: 1rem;
+    text-align: right;
+  }
+
+  .total {
+    margin-top: 20px;
+    padding: 15px;
+    background: #111;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    border-radius: 8px;
+  }
+
+  button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    background: #ddd;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #ccc;
+  }
+</style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Conteo de dinero</h1>
+
+    <!-- Monedas -->
+    <div class="row">
+      <label>1 €</label>
+      <input type="number" min="0" placeholder="0" data-value="1">
+    </div>
+
+    <!-- Billetes -->
+    <div class="row">
+      <label>5 €</label>
+      <input type="number" min="0" placeholder="0" data-value="5">
+    </div>
+
+    <div class="row">
+      <label>10 €</label>
+      <input type="number" min="0" placeholder="0" data-value="10">
+    </div>
+
+    <div class="row">
+      <label>20 €</label>
+      <input type="number" min="0" placeholder="0" data-value="20">
+    </div>
+
+    <div class="row">
+      <label>50 €</label>
+      <input type="number" min="0" placeholder="0" data-value="50">
+    </div>
+
+    <div class="row">
+      <label>100 €</label>
+      <input type="number" min="0" placeholder="0" data-value="100">
+    </div>
+
+    <div class="total">
+      Total: <span id="total">0</span> €
+    </div>
+
+    <button id="reset">Reset</button>
+  </div>
+
+<script>
+  const inputs = document.querySelectorAll("input");
+  const totalEl = document.getElementById("total");
+  const resetBtn = document.getElementById("reset");
+
+  function calcular() {
+    let total = 0;
+    inputs.forEach(i => {
+      total += (Number(i.value) || 0) * Number(i.dataset.value);
+    });
+    totalEl.textContent = total;
+  }
+
+  inputs.forEach(i => i.addEventListener("input", calcular));
+
+  resetBtn.addEventListener("click", () => {
+    inputs.forEach(i => i.value = "");
+    calcular();
+  });
+</script>
+</body>
+</html>
